@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 export PYTHONPATH=$PWD
+export APP_ENV="dev"
 poetry run manage "$@"
