@@ -10,6 +10,7 @@ fastapi = "^0.68.0"
 SQLAlchemy = "^1.4.22"
 psycopg2-binary = "^2.9.1"
 uvicorn = {extras = ["standard"], version = "^0.14.0"}
+boto3 = "^1.18.16"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
@@ -23,6 +24,7 @@ pytest-sugar = "^0.9.4"
 sqlalchemy-stubs = "^0.4"
 manage = "^0.1.15"
 click = "^8.0.1"
+types-boto3 = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
