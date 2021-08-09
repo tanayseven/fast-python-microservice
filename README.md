@@ -8,4 +8,7 @@ poetry install # to install all the packages
 ./prun pytest test/integration --docker-compose=docker-compose.yaml --use-running-containers # run only the integration tests
 ./prun pytest test/unit # run only the unit tests
 ./manage dev # run the server in dev mode
+
+# Migration related
+./prun alembic revision --autogenerate -m "<migration-name>" # generate a new migration
 ```

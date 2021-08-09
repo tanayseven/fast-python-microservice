@@ -7,7 +7,8 @@ from requests.adapters import HTTPAdapter
 from sqlalchemy.orm import Session
 from urllib3 import Retry  # type: ignore
 
-from src.database import get_db
+from src.database import get_db, engine
+from src.db_tables import tables
 from src.main import app
 
 
@@ -32,3 +33,10 @@ def client() -> Generator[TestClient, None, None]:
 @pytest.fixture
 def db() -> Generator[Session, None, None]:
     yield next(get_db())
+
+
+@pytest.fixture(scope="function", autouse=True)
+def reset_tables() -> Generator[None, None, None]:
+    [table.__table__.create(engine) for table in tables]
+    yield
+    [table.__table__.drop(engine) for table in tables]
