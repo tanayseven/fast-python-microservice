@@ -10,11 +10,6 @@ from src.users.db_tables import User
 router = APIRouter()
 
 
-@router.post("/user/login", tags=["users", "login"])
-async def user_login() -> dict:
-    return {"message": "login successful"}
-
-
 class SignUpRequest(BaseModel):
     username: str
     password: str
@@ -55,3 +50,27 @@ async def user_sign_up(
     else:
         response.status_code = status.HTTP_201_CREATED
         return {"message": "sign up successful"}
+
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
+def login_user(db: Session, username: str, password: str) -> bool:
+    user = db.query(User).filter(User.username == username).first()
+    return user is not None and user.password == password
+
+
+@router.post("/user/login", tags=["users", "login"])
+async def user_login(
+    login_request: LoginRequest, response: Response, db: Session = Depends(get_db)
+) -> dict:
+    login_successful = login_user(
+        db, username=login_request.username, password=login_request.password
+    )
+    if login_successful:
+        return {"message": "login successful"}
+    else:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return {"message": "login failed"}

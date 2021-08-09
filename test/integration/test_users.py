@@ -10,7 +10,16 @@ def test_login_success(client: TestClient, db: Session) -> None:
     response = client.post(
         f"/user/login", json={"username": "john.doe", "password": "password"}
     )
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"message": "login successful"}
+
+
+def test_login_failed(client: TestClient) -> None:
+    response = client.post(
+        f"/user/login", json={"username": "john.doe", "password": "password"}
+    )
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert response.json() == {"message": "login failed"}
 
 
 def test_sign_up_successful(client: TestClient) -> None:
