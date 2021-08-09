@@ -13,6 +13,7 @@ uvicorn = {extras = ["standard"], version = "^0.14.0"}
 boto3 = "^1.18.16"
 python-multipart = "^0.0.5"
 confluent-kafka = {extras = ["avro"], version = "^1.7.0"}
+aiofiles = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
