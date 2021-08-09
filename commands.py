@@ -1,6 +1,9 @@
 import subprocess
+from os import environ
 
 import click
+
+shell = environ["SHELL"]
 
 
 @click.command()
@@ -12,6 +15,6 @@ def dev(host, port):
     completed = subprocess.run(
         f"poetry run uvicorn src.main:app --host {host} --port {port} --reload",
         shell=True,
-        executable="/usr/bin/zsh",
+        executable=shell,
     )
     exit(completed.returncode)
