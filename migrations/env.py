@@ -7,6 +7,7 @@ from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
+
 config = context.config
 
 # Interpret the config file for Python logging.
@@ -17,9 +18,9 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.users.db_tables import User
+from src.db_tables import tables
 
-target_metadata = [User.metadata]
+target_metadata = [table.metadata for table in tables]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

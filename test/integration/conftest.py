@@ -4,8 +4,10 @@ import pytest
 import requests
 from fastapi.testclient import TestClient
 from requests.adapters import HTTPAdapter
+from sqlalchemy.orm import Session
 from urllib3 import Retry  # type: ignore
 
+from src.database import get_db
 from src.main import app
 
 
@@ -25,3 +27,8 @@ def wait_for_api(function_scoped_container_getter) -> (requests.Session, str):
 @pytest.fixture
 def client() -> Generator[TestClient, None, None]:
     yield TestClient(app=app)
+
+
+@pytest.fixture
+def db() -> Generator[Session, None, None]:
+    yield next(get_db())
