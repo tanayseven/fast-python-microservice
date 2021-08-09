@@ -11,4 +11,7 @@ poetry install # to install all the packages
 
 # Migration related
 ./prun alembic revision --autogenerate -m "<migration-name>" # generate a new migration
+./prun alembic history # check the history of all the migrations
+./prun alembic upgrade head  # apply all the migrations
+./prun alembic downgrade <tag-name>  # rollback migrations
 ```

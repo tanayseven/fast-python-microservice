@@ -17,8 +17,8 @@ depends_on = None
 
 
 def upgrade():
-    op.create_unique_constraint(None, "user", ["username"])
+    op.create_unique_constraint("unique_username", "user", ["username"])
 
 
 def downgrade():
-    op.drop_constraint(None, "user", type_="unique")
+    op.drop_constraint("unique_username", "user", type_="unique")
